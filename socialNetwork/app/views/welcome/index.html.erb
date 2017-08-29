@@ -1,0 +1,16 @@
+<h1>Welcome <%= current_user.email%> !!!</h1>
+<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+
+<br>
+<br>
+<%= form_tag(welcome_index_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+  <%= submit_tag "Search", :email => nil %>
+<% end %>
+
+
+<% if @users.present? %>
+  <%= render partial: "user", collection: @users %>
+<% else %>
+  <p>There are no users containing the term(s) <%= params[:search] %>.</p>
+<% end %>
